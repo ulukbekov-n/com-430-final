@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Greet App</title>
+</head>
+<body>
+  <h1>Greet App</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name">
+  <button onclick="greet()">Greet</button>
+  <div id="greeting"></div>
+
+  <script>
+    function greet() {
+      const name = document.getElementById('nameInput').value;
+      fetch('/greet', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('greeting').innerText = data.greeting;
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+  </script>
+</body>
+</html>
+
